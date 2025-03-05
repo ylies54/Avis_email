@@ -104,8 +104,8 @@ def envoyer_emails(fichier_csv):
             
             # Pour intégrer le tracking, créer des liens qui pointent vers vos endpoints
             lien_tracking_nancy = f"https://avis-email.onrender.com/click/nancy?email={row['email']}"
-            lien_tracking_metz = f"http://127.0.0.1:5000/click/metz?email={row['email']}"
-            lien_tracking_strasbourg = f"http://127.0.0.1:5000/click/strasbourg?email={row['email']}"
+            lien_tracking_metz = f"https://avis-email.onrender.com/click/metz?email={row['email']}"
+            lien_tracking_strasbourg = f"https://avis-email.onrender.com/click/strasbourg?email={row['email']}"
 
             # Construire le corps de l'e-mail en utilisant les liens de tracking
             body = f"""
