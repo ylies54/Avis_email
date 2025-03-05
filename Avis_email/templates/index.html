@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envoi d'Emails MeublePrive</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .logo {
+            width: 50%;  /* Vous pouvez ajuster la taille */
+            max-width: 900px;
+            height: auto;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        /* Masquer l'input file réel */
+        .file-input {
+            display: none;
+        }
+
+        .custom-file-label {
+            padding: 12px 30px;
+            font-size: 18px;
+            background-color: #f50057;
+            color: #fff;
+            border: 2px solid #f50057;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px; /* Espace entre le bouton et la zone de texte */
+            width: 250px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .custom-file-label:hover {
+            background-color: #fff;
+            color: #f50057;
+        }
+
+        .file-display {
+            padding: 12px 30px;
+            font-size: 18px;
+            border: 2px solid #000;
+            width: 250px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 10px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Centrer le texte à l'intérieur */
+        }
+
+        /* Bouton Envoyer les Emails */
+        .btn-send {
+            background-color: #fff;
+            color: #000;
+            border-radius: 30px;
+            padding: 10px 30px;
+            font-size: 18px;
+            border: 2px solid #f50057;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 30px;
+            width: 250px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Centrer le texte dans le bouton */
+        }
+
+        .btn-send:hover {
+            background-color: #f50057;
+            color: #fff;
+        }
+
+        /* Conteneur des messages avec défilement */
+        .message-container {
+            width: 80%;
+            height: 200px;  /* Hauteur ajustable */
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #fff;
+        }
+
+        .flash {
+            background-color: #f44336;
+            color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Logo centré -->
+    <img src="/static/1.jpg" alt="Logo" class="logo">
+
+    <h1>Envoi d'Emails MeublePrive</h1>
+    
+    <!-- Formulaire pour télécharger un fichier CSV -->
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <!-- Bouton Choisir un fichier (label stylisé) -->
+            <label for="file" class="custom-file-label">Choisir un fichier</label>
+            <input type="file" name="file" id="file" accept=".csv" required onchange="displayFileName()" class="file-input">
+            
+            <!-- Zone pour afficher le nom du fichier sélectionné -->
+            <div id="file-display" class="file-display">Aucun fichier choisi</div>
+        </div>
+
+        <!-- Bouton Envoyer les Emails -->
+        <button type="submit" class="btn-send">Envoyer les Emails</button>
+    </form>
+
+    <!-- Conteneur pour afficher les messages de la console -->
+    <div class="message-container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <script>
+        // Fonction pour afficher le nom du fichier sélectionné
+        function displayFileName() {
+            var fileInput = document.getElementById('file');
+            var fileName = fileInput.files[0].name; // Récupère le nom du fichier sélectionné
+            document.getElementById('file-display').innerText = fileName; // Affiche le nom dans la zone
+        }
+    </script>
+
+</body>
+</html>
